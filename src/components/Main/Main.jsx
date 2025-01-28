@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Main.css';
 import { assets } from '../../assets/assets';
+import { Context } from '../../context/Context';
 
 const Main = () => {
+  const { onSent, showResult, loading, resultData, setInput, input } = useContext(Context);
+
   return (
     <div className='main'>
       <div className='nav'>
@@ -12,7 +15,7 @@ const Main = () => {
       <div className="main-container">
         <div className='greet'>
           <p><span>Hello, Dev.</span></p>
-          <p>How can I help you today?</p> {/* Fixed capitalization and punctuation */}
+          <p>How can I help you today?</p>
         </div>
         <div className='cards'>
           <div className="card">
@@ -20,7 +23,7 @@ const Main = () => {
             <img src={assets.compass_icon} alt="Compass Icon" />
           </div>
           <div className="card">
-            <p>Briefly summarize this concept: urban planning</p> {/* Fixed typos */}
+            <p>Briefly summarize this concept: urban planning</p>
             <img src={assets.bulb_icon} alt="Bulb Icon" />
           </div>
           <div className="card">
@@ -33,18 +36,22 @@ const Main = () => {
           </div>
         </div>
         <div className="main-bottom">
-            <div className="search-box">
-                <input type="text"
-                placeholder='Enter a prompt here' />
-                <div>
-                    <img src={assets.gallery_icon} alt="" />
-                    <img src={assets.mic_icon} alt="" />
-                    <img src={assets.send_icon} alt="" />
-                </div>
+          <div className="search-box">
+            <input
+              onChange={(e) => setInput(e.target.value)}
+              type="text"
+              value={input}
+              placeholder='Enter a prompt here'
+            />
+            <div>
+              <img src={assets.gallery_icon} alt="Gallery Icon" />
+              <img src={assets.mic_icon} alt="Microphone Icon" />
+              <img onClick={onSent} src={assets.send_icon} alt="Send Icon" />
             </div>
-            <p className='bottom-info'>
-                    Gemini may display inaccurate info, including about people, so double-check responses.Your privacy and Gemini Apps
-            </p>
+          </div>
+          <p className='bottom-info'>
+            Gemini may display inaccurate info, including about people, so double-check responses. Your privacy and Gemini Apps are important to us.
+          </p>
         </div>
       </div>
     </div>
